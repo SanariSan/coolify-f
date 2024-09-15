@@ -21,5 +21,7 @@ CMD [ \
 "./node_modules/cross-env/src/bin/cross-env.js", \
 "REACT_APP_NODE_ENV=production", \
 "./node_modules/react-scripts/bin/react-scripts.js", \
-"build" \
+"build", \
+"&&", \
+"tail -f /dev/null" \
 ]
