@@ -15,13 +15,8 @@ COPY --chown=root:root --from=modules /home/node/proj/package.json /home/node/pr
 COPY --chown=root:root --from=modules /home/node/proj/node_modules ./node_modules
 COPY --chown=root:root dumb-init_1.2.5_x86_64 /usr/local/bin/dumb-init
 RUN chmod +x /usr/local/bin/dumb-init
-CMD [ \
-"dumb-init", \
-"node", \
-"./node_modules/cross-env/src/bin/cross-env.js", \
-"REACT_APP_NODE_ENV=production", \
-"./node_modules/react-scripts/bin/react-scripts.js", \
-"build", \
-"&&", \
-"tail -f /dev/null" \
-]
+CMD sh -c ' \
+  dumb-init node ./node_modules/cross-env/src/bin/cross-env.js REACT_APP_NODE_ENV=production && \
+  node ./node_modules/react-scripts/bin/react-scripts.js build && \
+  tail -f /dev/null \
+'
